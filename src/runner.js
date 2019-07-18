@@ -5,7 +5,29 @@ import ThunderJS from 'thunderjs'
 import config from '../config'
 const thunderJS = ThunderJS(config)
 
-export default (calls, cb) => {
+const listen = (listeners, cb) => {
+  Contra.each.series(
+    listeners,
+    (listener, next) => {
+      console.log(Chalk.yellow('======================================================'))
+      console.log(Chalk.yellow(listener.name))
+      console.log(Chalk.yellow('======================================================'))
+
+      thunderJS.on(listener.plugin, listener.event, listener.cb)
+      next()
+    },
+    () => {
+      console.log('done setting up listeners')
+      if (cb && typeof cb === 'function') {
+        setTimeout(() => {
+          cb()
+        }, 1000)
+      }
+    }
+  )
+}
+
+const run = (calls, cb) => {
   Contra.each.series(
     calls,
     (call, next) => {
@@ -44,4 +66,10 @@ export default (calls, cb) => {
       }
     }
   )
+}
+
+export default {
+  thunderJS,
+  run,
+  listen,
 }

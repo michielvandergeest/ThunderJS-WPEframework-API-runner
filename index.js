@@ -13,7 +13,16 @@ const prompt = () => {
       },
     ])
     .then(answers => {
-      runner(scenarios[answers.scenario], prompt)
+      const scenario = scenarios[answers.scenario]
+
+      // see if the scenario has listeners defined
+      if (scenario.listeners && scenario.scenario) {
+        runner.listen(scenario.listeners, () => {
+          runner.run(scenario.scenario, prompt)
+        })
+      } else {
+        runner.run(scenario, prompt)
+      }
     })
 }
 
