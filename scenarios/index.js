@@ -5,5 +5,6 @@ import webkitbrowser from './webkitbrowser'
 export default {
   simple,
   controller,
-  webkitbrowser,
+  // using a more descriptive key to display in the list:
+  'Web Kit Browser': webkitbrowser,
 }
