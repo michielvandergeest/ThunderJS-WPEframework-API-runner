@@ -1,0 +1,37 @@
+{
+  "author": "Michiel van der Geest <hello@michielvandergeest.com>",
+  "name": "thunderjs-wpeframework-api-runner",
+  "version": "0.0.1",
+  "license": "apache",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r esm index.js",
+    "postinstall": "test -e config.js && echo config.js already exists || cp config.example.js config.js",
+    "lint": "eslint '**/*.{js}'",
+    "lint:fix": "eslint '**/*.{js}' --fix"
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "npm run lint:fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "babel-eslint": "^10.0.1",
+    "chalk": "^2.4.2",
+    "contra": "^1.9.4",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "esm": "^3.2.25",
+    "husky": "^2.4.1",
+    "lint-staged": "^8.2.1",
+    "prettier": "^1.18.2",
+    "thunderjs": "github:WebPlatformForEmbedded/ThunderJS"
+  }
+}
