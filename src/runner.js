@@ -5,7 +5,7 @@ import ThunderJS from 'thunderjs'
 import config from '../config'
 const thunderJS = ThunderJS(config)
 
-export default calls => {
+export default (calls, cb) => {
   Contra.each.series(
     calls,
     (call, next) => {
@@ -36,6 +36,12 @@ export default calls => {
     },
     () => {
       console.log(Chalk.yellow('======================== Done ========================'))
+      console.log('\n\n')
+      if (cb && typeof cb === 'function') {
+        cb()
+      } else {
+        process.exit()
+      }
     }
   )
 }
